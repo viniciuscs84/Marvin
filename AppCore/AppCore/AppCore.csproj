@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>Marvin.AppCore.Entities</AssemblyName>
+    <RootNamespace>Marvin.AppCore</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Marvin">
+      <HintPath>..\..\Core\Marvin\bin\Debug\netstandard2.1\Marvin.dll</HintPath>
+    </Reference>
+    <Reference Include="Marvin.Commons">
+      <HintPath>..\..\Core\Commons\bin\Debug\netstandard2.1\Marvin.Commons.dll</HintPath>
+    </Reference>
+    <Reference Include="Marvin.DataAnnotations">
+      <HintPath>..\..\Core\DataAnnotations\bin\Debug\netstandard2.1\Marvin.DataAnnotations.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
