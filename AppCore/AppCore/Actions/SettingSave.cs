@@ -14,7 +14,7 @@ namespace Marvin.AppCore.Actions
             parameters.Add("Application", _model.Application.Id);
             Entities.Setting control = _dataAccess.Select<Entities.Setting>(parameters);
             if (control != null && control.Id != _model.Id)
-                throw new Commons.Exceptions.EssentialsException(Globalization.AppCore.Errors.AlreadyExistsApplicationSetting, "AlreadyExistsApplicationSetting", model: _model);
+                throw new Commons.Exceptions.EssentialsException(Globalization.Errors.AlreadyExistsApplicationSetting, "AlreadyExistsApplicationSetting", model: _model);
         }
     }
 }

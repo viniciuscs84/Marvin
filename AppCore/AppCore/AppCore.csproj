@@ -4,6 +4,18 @@
     <TargetFramework>netstandard2.1</TargetFramework>
     <AssemblyName>Marvin.AppCore.Entities</AssemblyName>
     <RootNamespace>Marvin.AppCore</RootNamespace>
+    <AssemblyVersion>0.0.0.1</AssemblyVersion>
+    <FileVersion>0.0.0.1</FileVersion>
+    <PackageId>Marvin.AppCore</PackageId>
+    <Authors>Vinícius Costa Santos</Authors>
+    <Version>0.0.1</Version>
+    <Product>Marvin FullStack Framework</Product>
+    <Company>Marvin</Company>
+    <Description>AppCore Library by Marvin FullStack Framework</Description>
+    <Copyright>Copyright ©  2020</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageIcon>marvin.ico</PackageIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +28,21 @@
     <Reference Include="Marvin.DataAnnotations">
       <HintPath>..\..\Core\DataAnnotations\bin\Debug\netstandard2.1\Marvin.DataAnnotations.dll</HintPath>
     </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\marvin.ico">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Globalization\Globalization.csproj" />
   </ItemGroup>
 
 </Project>

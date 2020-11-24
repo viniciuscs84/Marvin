@@ -13,7 +13,7 @@ namespace Marvin.AppCore.Actions
             parameters.Add("Code", _model.Code);
             Entities.Application control = _dataAccess.Select<Entities.Application>(parameters);
             if (control != null && control.IsActive && control.Id != _model.Id)
-                throw new Commons.Exceptions.EssentialsException(Globalization.AppCore.Errors.AlreadyExistsApplicationCode, "AlreadyExistsApplicationCode", model: _model);
+                throw new Commons.Exceptions.EssentialsException(Globalization.Errors.AlreadyExistsApplicationCode, "AlreadyExistsApplicationCode", model: _model);
         }
     }
 }

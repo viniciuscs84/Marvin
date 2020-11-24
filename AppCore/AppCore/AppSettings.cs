@@ -164,16 +164,16 @@ namespace Marvin.AppCore
             Commons.Utilities.Logger.Info("AppKey: " + appKey);
 
             if (string.IsNullOrEmpty(appCode))
-                throw new Commons.Exceptions.EssentialsException(Globalization.AppCore.Errors.NotDefinedAppCode, "NotDefinedAppCode");
+                throw new Commons.Exceptions.EssentialsException(Globalization.Errors.NotDefinedAppCode, "NotDefinedAppCode");
             if (string.IsNullOrEmpty(appKey))
-                throw new Commons.Exceptions.EssentialsException(Globalization.AppCore.Errors.NotDefinedAppKey, "NotDefinedAppKey");
+                throw new Commons.Exceptions.EssentialsException(Globalization.Errors.NotDefinedAppKey, "NotDefinedAppKey");
             _runningApplication = new Business.Application().GetByCode(appCode);
             if (_runningApplication == null)
-                throw new Commons.Exceptions.EssentialsException(Globalization.AppCore.Errors.AppNotFound, "AppNotFound");
+                throw new Commons.Exceptions.EssentialsException(Globalization.Errors.AppNotFound, "AppNotFound");
             if (_runningApplication.Key != appKey)
             {
                 _runningApplication = null;
-                throw new Commons.Exceptions.EssentialsException(Globalization.AppCore.Errors.AppNoMatchKey, "AppNoMatchKey");
+                throw new Commons.Exceptions.EssentialsException(Globalization.Errors.AppNoMatchKey, "AppNoMatchKey");
             }
 
             Commons.Utilities.Logger.Info("AppName: " + _runningApplication.Name);
