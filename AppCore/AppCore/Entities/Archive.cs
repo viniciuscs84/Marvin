@@ -46,7 +46,7 @@ namespace Marvin.AppCore.Entities
     //Delete Procedure
     [DataAnnotations.ERBridge.DeleteProcedure("usp_sys_archive_delete")]
     [DataAnnotations.ERBridge.DeleteProcedureParameter("Id", "@id", DataAnnotations.ERBridge.DataType.Int32)]
-    public class Archive : Layers.DefaultEntity
+    public class Archive : Layers.DefaultModel
     {
         [DataAnnotations.ERBridge.Column("nm_archive", DataAnnotations.ERBridge.DataType.String, required: true, length: 100)]
         public string Name { get; set; }

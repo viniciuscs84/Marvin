@@ -15,9 +15,9 @@ namespace Marvin.AppCore.Business
             return facade.Result;
         }
 
-        public override void SaveEntity(Entities.Setting entity)
+        public override void SaveModel(Entities.Setting model)
         {
-            Actions.SettingSave facade = new Actions.SettingSave(entity);
+            Actions.SettingSave facade = new Actions.SettingSave(model);
             if (!facade.DoAction())
                 throw facade.Exception;
         }

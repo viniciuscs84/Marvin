@@ -195,7 +195,7 @@ namespace Marvin.AppCore
             Business.Setting business = new Business.Setting();
             Dictionary<string, object> parameters = new Dictionary<string, object>();
             parameters.Add("Application", application.Id);
-            Layers.EntityCollection<Entities.Setting> settings = business.GetEntityCollection(parameters);
+            Layers.ModelCollection<Entities.Setting> settings = business.GetModelCollection(parameters);
 
             System.Configuration.AppSettingsReader settingsReader = new System.Configuration.AppSettingsReader();
 

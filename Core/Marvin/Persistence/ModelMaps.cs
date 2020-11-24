@@ -17,7 +17,7 @@ namespace Marvin.Persistence.ModelMaps
         /// <summary>
         /// Dicionário estático de entidades mapeadas
         /// </summary>
-        private static Dictionary<Type, ModelMap> _entitiesMap = new Dictionary<Type, ModelMap>();
+        private static Dictionary<Type, ModelMap> _modelsMap = new Dictionary<Type, ModelMap>();
 
         /// <summary>
         /// Retorna um mapeamento da entidade em questão
@@ -27,8 +27,8 @@ namespace Marvin.Persistence.ModelMaps
         public static ModelMap GetModelMap(Type type)
         {
             ModelMap modelMap = null;
-            if (_entitiesMap.ContainsKey(type))
-                modelMap = _entitiesMap[type];
+            if (_modelsMap.ContainsKey(type))
+                modelMap = _modelsMap[type];
             else
             {
                 try
@@ -41,12 +41,12 @@ namespace Marvin.Persistence.ModelMaps
                     if (modelMap != null)
                     {
                         modelMap._baseModelMap = GetModelMap(type.BaseType);
-                        _entitiesMap.Add(type, modelMap);
+                        _modelsMap.Add(type, modelMap);
 
                         if (modelMap.InheritanceMode == DataAnnotations.ERBridge.InheritanceMode.UniqueTable)
                         {
                             if (modelMap._baseModelMap == null && type.BaseType.IsSubclassOf(typeof(Layers.Model)))
-                                _entitiesMap.Add(type.BaseType, modelMap);
+                                _modelsMap.Add(type.BaseType, modelMap);
                         }
                     }
                 }
@@ -159,10 +159,10 @@ namespace Marvin.Persistence.ModelMaps
             {
                 Config.Settings essentialsSettings = (Config.Settings)ConfigurationManager.GetSection("essentialsSettings");
                 XmlDocument xml = new XmlDocument();
-                xml.Load(essentialsSettings.XmlEntitiesPath);
-                XmlNode modelNode = xml.SelectSingleNode("/Entities/Model[@type='" + type.FullName + "']");
+                xml.Load(essentialsSettings.XmlModelsPath);
+                XmlNode modelNode = xml.SelectSingleNode("/Models/Model[@type='" + type.FullName + "']");
 
-                modelNode = (modelNode == null) ? xml.SelectSingleNode("/Entities/Model[@baseModelType='" + type.FullName + "']") : modelNode;
+                modelNode = (modelNode == null) ? xml.SelectSingleNode("/Models/Model[@baseModelType='" + type.FullName + "']") : modelNode;
                 
                 if (modelNode != null)
                 {

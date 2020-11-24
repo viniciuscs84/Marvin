@@ -3,32 +3,32 @@
     public class ArchiveGetFile : Marvin.Actions.ActionFacade
     {
         private bool _compressed;
-        private Entities.Archive _entity;
+        private Entities.Archive _model;
         private Commons.Utilities.FileProvider _fileProvider;
 
         public Commons.Utilities.File File { get; protected set; }
 
-        public ArchiveGetFile(Entities.Archive entity, bool compressed = false)
+        public ArchiveGetFile(Entities.Archive model, bool compressed = false)
         {
             _compressed = compressed;
-            _entity = entity;
-            _fileProvider = (Commons.Utilities.FileProvider)System.Activator.CreateInstance(System.Type.GetType(_entity.ProviderClass));
+            _model = model;
+            _fileProvider = (Commons.Utilities.FileProvider)System.Activator.CreateInstance(System.Type.GetType(_model.ProviderClass));
         }
 
         protected override void PrepareExecute()
         {
             base.PrepareExecute();
-            if (!string.IsNullOrEmpty(_entity.ProviderArgs))
-                _fileProvider.SetCredentials(_entity.ProviderArgs);
+            if (!string.IsNullOrEmpty(_model.ProviderArgs))
+                _fileProvider.SetCredentials(_model.ProviderArgs);
         }
 
         protected override void Execute()
         {
-            File = _fileProvider.Get(_entity.StorageFileName, _entity.Path);
-            if (File.Compressed && (!_compressed || _entity.StorageStrategy != Entities.StorageStrategy.Compressed))
+            File = _fileProvider.Get(_model.StorageFileName, _model.Path);
+            if (File.Compressed && (!_compressed || _model.StorageStrategy != Entities.StorageStrategy.Compressed))
             {
-                File = _fileProvider.UnCompress(File, _entity.LockKey);
-                File.Name = _entity.Name;
+                File = _fileProvider.UnCompress(File, _model.LockKey);
+                File.Name = _model.Name;
             }
         }
 

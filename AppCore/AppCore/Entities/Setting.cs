@@ -3,7 +3,7 @@
 namespace Marvin.AppCore.Entities
 {
     /// <summary>
-    /// This entity represents a Configuration Setting in the application
+    /// This model represents a Configuration Setting in the application
     /// </summary>
     [DataAnnotations.ERBridge.Table("sys_setting")]
     //Insert Procedure
@@ -34,7 +34,7 @@ namespace Marvin.AppCore.Entities
     //Delete Procedure
     [DataAnnotations.ERBridge.DeleteProcedure("usp_sys_setting_delete")]
     [DataAnnotations.ERBridge.DeleteProcedureParameter("Id", "@id", DataAnnotations.ERBridge.DataType.Int32)]
-    public class Setting : Layers.DefaultEntity
+    public class Setting : Layers.DefaultModel
     {
         [DataAnnotations.ERBridge.Column("id_application", DataAnnotations.ERBridge.DataType.Int32, required: true)]
         [DataAnnotations.ERBridge.Reference("Id", fetchType: DataAnnotations.ERBridge.Fetch.EAGER)]

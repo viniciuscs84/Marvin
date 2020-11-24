@@ -69,7 +69,7 @@ namespace Marvin.Persistence
         /// <param name="command">Comando de busca</param>
         /// <param name="modelType">Tipo da entidade</param>
         /// <returns>Retorna coleção com objetos encontrados</returns>
-        public Layers.ModelCollection<TModel> SearchEntities<TModel>(IDbCommand command, Type modelType = null)
+        public Layers.ModelCollection<TModel> SearchModels<TModel>(IDbCommand command, Type modelType = null)
             where TModel : class, Layers.IModel
         {
             //TODO:Tratar exceções

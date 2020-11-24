@@ -8,20 +8,20 @@ namespace Marvin.AppCore.Actions
         private Commons.Utilities.File _file;
         private Commons.Utilities.FileProvider _fileProvider;
 
-        public ArchiveSave(Entities.Archive entity, Commons.Utilities.File file)
-            : base(entity)
+        public ArchiveSave(Entities.Archive model, Commons.Utilities.File file)
+            : base(model)
         {
             _file = file;
-            _fileProvider = (Commons.Utilities.FileProvider)Activator.CreateInstance(Type.GetType(_entity.ProviderClass));
-            _fileProvider.SetCredentials(_entity.ProviderArgs);
+            _fileProvider = (Commons.Utilities.FileProvider)Activator.CreateInstance(Type.GetType(_model.ProviderClass));
+            _fileProvider.SetCredentials(_model.ProviderArgs);
         }
 
         protected override void PrepareExecute()
         {
             base.PrepareExecute();
-            if (_entity.IsRecorded && _entity.StorageStrategy != Entities.StorageStrategy.Versioned)
+            if (_model.IsRecorded && _model.StorageStrategy != Entities.StorageStrategy.Versioned)
             {
-                Marvin.Actions.GenericSelect<Entities.Archive> selectFacade = new Marvin.Actions.GenericSelect<Entities.Archive>(new Dictionary<string, object>() { { "Id", _entity.Id } });
+                Marvin.Actions.GenericSelect<Entities.Archive> selectFacade = new Marvin.Actions.GenericSelect<Entities.Archive>(new Dictionary<string, object>() { { "Id", _model.Id } });
                 if (selectFacade.DoAction() && selectFacade.Result != null)
                 {
                     Commons.Utilities.FileProvider oldFileProvider = (Commons.Utilities.FileProvider)Activator.CreateInstance(Type.GetType(selectFacade.Result.ProviderClass));
@@ -32,24 +32,24 @@ namespace Marvin.AppCore.Actions
             }
 
             Commons.Utilities.File fileToSave = _file;
-            switch (_entity.StorageStrategy)
+            switch (_model.StorageStrategy)
             {
                 case Entities.StorageStrategy.Compressed:
-                    fileToSave = _fileProvider.Compress(_file, _entity.LockKey);
+                    fileToSave = _fileProvider.Compress(_file, _model.LockKey);
                     break;
                 case Entities.StorageStrategy.Locked:
-                    if (string.IsNullOrEmpty(_entity.LockKey))
-                        _entity.LockKey = _entity.Name;
-                    fileToSave = _fileProvider.Compress(new Commons.Utilities.File("file", _file.Content), _entity.LockKey, Guid.NewGuid().ToString() + ".lock");
+                    if (string.IsNullOrEmpty(_model.LockKey))
+                        _model.LockKey = _model.Name;
+                    fileToSave = _fileProvider.Compress(new Commons.Utilities.File("file", _file.Content), _model.LockKey, Guid.NewGuid().ToString() + ".lock");
                     break;
                 //TODO:implementar algoritimo de versionamento
                 case Entities.StorageStrategy.Versioned:
-                    fileToSave = _fileProvider.Compress(new Commons.Utilities.File("last", _file.Content), _entity.LockKey, _entity.Name + ".ver");
+                    fileToSave = _fileProvider.Compress(new Commons.Utilities.File("last", _file.Content), _model.LockKey, _model.Name + ".ver");
                     break;
             }
-            _entity.StorageFileName = fileToSave.Name;
-            _fileProvider.Save(fileToSave, _entity.Path);
-            _entity.StorageAddress = _fileProvider.GetFullPath(fileToSave.Name, _entity.Path);
+            _model.StorageFileName = fileToSave.Name;
+            _fileProvider.Save(fileToSave, _model.Path);
+            _model.StorageAddress = _fileProvider.GetFullPath(fileToSave.Name, _model.Path);
         }
     }
 }

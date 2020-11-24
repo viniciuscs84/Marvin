@@ -32,9 +32,9 @@ namespace Marvin.Layers
                 throw facade.Exception;
         }
 
-        public virtual void DeleteModelList(List<TModel> entities)
+        public virtual void DeleteModelList(List<TModel> models)
         {
-            foreach (TModel model in entities)
+            foreach (TModel model in models)
                 DeleteModel(model);
         }
     }

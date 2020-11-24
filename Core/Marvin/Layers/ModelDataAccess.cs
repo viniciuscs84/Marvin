@@ -157,7 +157,7 @@ namespace Marvin.Layers
             Persistence.ModelMaps.ProcedureMapInfo procedureMap = modelMap.GetProcedureMap(procedureKey);
             IDbCommand command = (procedureMap == null || forceNonProcedureCommand) ? CreateSQLSelectCommand(modelMap, parameters) : CreateProcedureCommand(modelMap, parameters, procedureKey);
             Persistence.Repository repository = GetDefaultRepository(modelMap);
-            ModelCollection<TModel> result = repository.SearchEntities<TModel>(command, modelType);
+            ModelCollection<TModel> result = repository.SearchModels<TModel>(command, modelType);
 
             if (procedureMap != null && procedureMap.Parameters.ContainsKey("TotalRows"))
             {
@@ -312,13 +312,13 @@ namespace Marvin.Layers
                 //Type collectionType = typeof(ModelCollection<>).MakeGenericType(collectionItemType);
                 //object collection = Activator.CreateInstance(collectionType);
 
-                ModelCollection<IModel> result = repository.SearchEntities<IModel>(command, collectionItemType);                
+                ModelCollection<IModel> result = repository.SearchModels<IModel>(command, collectionItemType);                
 
                 typeof(TModel).GetProperty(collectionName).SetValue(model, Activator.CreateInstance(typeof(TModel).GetProperty(collectionName).PropertyType));
 
                 result.ForEach(item => typeof(TModel).GetProperty(collectionName).PropertyType.GetMethod("Add").Invoke(typeof(TModel).GetProperty(collectionName).GetValue(model, null), new object[] { item }));
 
-                //typeof(TModel).GetProperty(collectionName).PropertyType.GetMethod("Add").Invoke(typeof(TModel).GetProperty(collectionName).GetValue(model, null), new object[] { repository.SearchEntities<object>(command, collectionItemType) });
+                //typeof(TModel).GetProperty(collectionName).PropertyType.GetMethod("Add").Invoke(typeof(TModel).GetProperty(collectionName).GetValue(model, null), new object[] { repository.SearchModels<object>(command, collectionItemType) });
             }
         }
 

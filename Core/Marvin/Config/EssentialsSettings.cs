@@ -18,11 +18,11 @@ namespace Marvin.Config
         }
 
 
-        [ConfigurationProperty("xmlEntitiesPath", DefaultValue = "entities.xml", IsKey = false, IsRequired = false)]
-        public string XmlEntitiesPath
+        [ConfigurationProperty("xmlModelsPath", DefaultValue = "models.xml", IsKey = false, IsRequired = false)]
+        public string XmlModelsPath
         {
-            get { return (string)base["xmlEntitiesPath"]; }
-            set { base["xmlEntitiesPath"] = value; }
+            get { return (string)base["xmlModelsPath"]; }
+            set { base["xmlModelsPath"] = value; }
         }
     }
 
